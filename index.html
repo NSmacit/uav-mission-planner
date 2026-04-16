@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAV Mission Planner</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="sidebar">
+        <h1>UAV Mission Planner</h1>
+        <div id="stats">
+            <p>Waypoints: <span id="waypoint-count">0</span></p>
+            <p>Distance: <span id="total-distance">0</span> mil</p>
+            <p>Flight Time: <span id="flight-time">0</span> min</p>
+        </div>
+        <div id="speed-selector">
+            <label>UAV Speed (mph):</label>
+            <input type="number" id="speed" value="60" min="1" max="500" style="width:100%; padding:5px; margin-top:5px; background:#16213e; color:white; border:1px solid #00d4ff; border-radius:4px;" />
+        </div>
+        <div id="waypoint-list"></div>
+        <button id="clear-btn">Clear Route</button>
+        <button id="export-json">Export JSON</button>
+        <button id="export-csv">Export CSV</button>
+    </div>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
