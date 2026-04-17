@@ -1,0 +1,25 @@
+{
+  "name": "uav-mission-planner",
+  "version": "1.0.0",
+  "description": "A lightweight, web-based UAV mission planning tool that allows users to plan drone flight routes on an interactive map.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NSmacit/uav-mission-planner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NSmacit/uav-mission-planner/issues"
+  },
+  "homepage": "https://github.com/NSmacit/uav-mission-planner#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "node-fetch": "^3.3.2"
+  }
+}

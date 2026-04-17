@@ -106,3 +106,6 @@ button {
 #map {
     flex: 1;
 }
+.aircraft-icon img {
+    filter: hue-rotate(0deg);
+}

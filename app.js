@@ -151,3 +151,51 @@ document.getElementById('export-csv').addEventListener('click', function() {
     a.click();
 });
 document.getElementById('speed').addEventListener('input', updateStats);
+// Live Air Traffic - OpenSky API
+let aircraftMarkers = [];
+
+function fetchAircraft() {
+    fetch('/api/aircraft')
+        .then(res => res.json())
+        .then(data => {
+            console.log('Aircraft count:', data.states ? data.states.length : 0);
+            aircraftMarkers.forEach(m => map.removeLayer(m));
+            aircraftMarkers = [];
+
+            if (!data.states) return;
+
+            data.states.forEach(ac => {
+                const lat = ac[6];
+                const lng = ac[5];
+                const callsign = ac[1] ? ac[1].trim() : 'Unknown';
+                const altitude = ac[7] ? Math.round(ac[7]) : 0;
+                const speed = ac[9] ? Math.round(ac[9] * 1.944) : 0;
+                const heading = ac[10] ? Math.round(ac[10]) : 0;
+            
+                if (!lat || !lng) return;
+            
+                // Color based on altitude
+                let color = '#00ff00'; // green - low
+                if (altitude > 10000) color = '#ff0000'; // red - high
+                else if (altitude > 5000) color = '#ffa500'; // orange - medium
+                else if (altitude > 1000) color = '#ffff00'; // yellow - low-medium
+            
+                const icon = L.divIcon({
+                    html: `<span style="font-size:20px; transform:rotate(${heading}deg); display:block; filter: drop-shadow(0 0 3px ${color});">✈️</span>`,
+                    className: '',
+                    iconSize: [28, 28],
+                    iconAnchor: [14, 14]
+                });
+            
+                const marker = L.marker([lat, lng], { icon })
+                    .addTo(map)
+                    .bindPopup(`<b>${callsign}</b><br>Alt: ${altitude}m<br>Speed: ${speed} knots<br>Heading: ${heading}°`);
+            
+                aircraftMarkers.push(marker);
+            });
+        })
+        .catch(err => console.log('Aircraft data unavailable'));
+}
+
+fetchAircraft();
+setInterval(fetchAircraft, 30000);
