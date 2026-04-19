@@ -8,13 +8,17 @@ app.use(express.static('.'));
 
 app.get('/api/aircraft', async (req, res) => {
     try {
-        const apiKey = process.env.AVIATION_KEY || '417a465a608323db30604c135b20a570';
-        const response = await fetch(`http://api.aviationstack.com/v1/flights?access_key=${apiKey}&flight_status=active&limit=100`);
+        const username = process.env.OPENSKY_USER || 'nsmacit29';
+        const password = process.env.OPENSKY_PASS || 'Kelkitli293429.';
+        const response = await fetch('https://opensky-network.org/api/states/all?lamin=45&lomin=-15&lamax=63&lomax=15', {
+            headers: {
+                'Authorization': 'Basic ' + Buffer.from(`${username}:${password}`).toString('base64')
+            }
+        });
         const data = await response.json();
         res.json(data);
     } catch (err) {
-        console.log('Error:', err);
-        res.json({ data: [] });
+        res.json({ states: [] });
     }
 });
 
