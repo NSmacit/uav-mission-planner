@@ -9,7 +9,7 @@ app.use(express.static('.'));
 app.get('/api/aircraft', async (req, res) => {
     try {
         const username = process.env.OPENSKY_USER || 'nsmacit29';
-        const password = process.env.OPENSKY_PASS || 'Kelkitli293429.';
+        const password = process.env.OPENSKY_PASS || '.........';
         const response = await fetch('https://opensky-network.org/api/states/all?lamin=45&lomin=-15&lamax=63&lomax=15', {
             headers: {
                 'Authorization': 'Basic ' + Buffer.from(`${username}:${password}`).toString('base64')
